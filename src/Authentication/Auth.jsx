@@ -53,7 +53,7 @@ export default function AuthPage() {
   const handleSignInput = (e) => {
     setSignUp({ ...isSignUp, [e.target.name]: e.target.value });
   }
-  
+
   const handleSignUpData = async (e) => {
     e.preventDefault();
     try {
@@ -78,7 +78,7 @@ export default function AuthPage() {
   const handleLoginInput = (e) => {
     setLogin({ ...isLogin, [e.target.name]: e.target.value });
   }
- 
+
   const handleLoginData = async (e) => {
     e.preventDefault();
     try {
@@ -91,24 +91,24 @@ export default function AuthPage() {
 
       const role = res.data.data.role;
 
-        if (role === "Business") {
+      if (role === "Business") {
 
-            const profile = await axios.get(
-                "http://localhost:5600/fromData/businessProfile",
-                {
-                    withCredentials: true,
-                }
-            );
+        const profile = await axios.get(
+          "http://localhost:5600/fromData/businessProfile",
+          {
+            withCredentials: true,
+          }
+        );
 
-            if (profile.data.exists) {
-                navigate("/businessProfile");
-            } else {
-                navigate("/business");
-            }
-
+        if (profile.data.exists) {
+          navigate("/businesProfile");
         } else {
-            navigate("/customer");
+          navigate("/business");
         }
+
+      } else {
+        navigate("/customer");
+      }
 
       toast.success("Login Successful");
     }
@@ -134,23 +134,44 @@ export default function AuthPage() {
   }
 
   const checkLogin = async () => {
+  try {
+    const { data } = await axios.get(
+      "http://localhost:5600/protected/me",
+      {
+        withCredentials: true,
+      }
+    );
+
+    console.log(data.user.role);
+
+    if (data.user.role !== "Business") {
+      navigate("/customer");
+      return;
+    }
+
     try {
-      const res = await axios.get(
-        "http://localhost:5600/protected/me",
+      await axios.get(
+        "http://localhost:5600/fromData/businessProfile",
         {
           withCredentials: true,
         }
       );
 
-      if (res.data.user.role === "Business") {
+      navigate("/businesProfile");
+
+    } catch (err) {
+      if (err.response?.status === 404) {
         navigate("/business");
       } else {
-        navigate("/customer");
+        toast.error("Something went wrong");
       }
-    } catch (err) {
-      toast.error("Cannot access")
     }
-  };
+
+  } catch (err) {
+    toast.error("Please login first");
+    navigate("/auth");
+  }
+};
 
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-linear-to-br from-zinc-100 via-zinc-100 to-zinc-400 p-4">
