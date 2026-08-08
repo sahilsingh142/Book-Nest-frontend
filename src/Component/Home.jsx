@@ -6,15 +6,12 @@ function Home() {
   const [toggle, setToggle] = useState(false)
   return (
     <>
-      <div className={`relative w-full h-screen overflow-hidden transition-colors duration-500 ${toggle ? "bg-black text-white" : "bg-linear-to-br from-zinc-100 via-zinc-100 to-zinc-300 text-black"}`}>
+      <div className={`relative w-full h-screen overflow-hidden transition-colors duration-500 ${toggle ? "bg-black text-white" : "bg-linear-to-br from-zinc-100 via-zinc-50 to-zinc-300 text-black"}`}>
 
         <div className='absolute inset-0 overflow-hidden pointer-events-none'>
-
-          <div className={`absolute w-full h-px animate-scan ${toggle ? "bg-emerald-500/60" : "bg-emerald-500/60"}`}
-            style={{ boxShadow: toggle ? '0 0 20px 1px #10b981' : '0 0 15px 1px #10b98180' }} />
+          <div className="bn-ripple" style={{ animationDelay: '0s' }} />
         </div>
 
-        {/* Content layer */}
         <div className='relative z-10'>
           <div className='flex justify-between items-center px-6 py-4'>
             <h1 className='group font-semibold tracking-tight text-xl cursor-pointer flex'>
@@ -53,19 +50,19 @@ function Home() {
 
             <div className='flex justify-center gap-15 font-bold mt-15'>
               <Link to='/auth' state={{ role: "Business" }}>
-              <button className="animate-slideInLeft group relative overflow-hidden rounded-2xl px-7 py-3 border sm:border-none font-semibold transition-all duration-300 cursor-pointer"
-                style={{ animationDelay: '600ms' }}>
-                <span className="relative z-10">For Businesses</span>
-                <span className="absolute left-0 top-0 border h-full w-2 rounded-2xl bg-emerald-500 transition-all duration-600 group-hover:w-full"></span>
-              </button>
+                <button className="animate-slideInLeft group relative overflow-hidden rounded-2xl px-7 py-3 border sm:border-none font-semibold transition-all duration-300 cursor-pointer"
+                  style={{ animationDelay: '600ms' }}>
+                  <span className="relative z-10">For Businesses</span>
+                  <span className="absolute left-0 top-0 border h-full w-2 rounded-2xl bg-emerald-500 transition-all duration-600 group-hover:w-full"></span>
+                </button>
               </Link>
 
               <Link to='/auth' state={{ role: "Customer" }}>
-              <button className="animate-slideInRight group relative overflow-hidden rounded-2xl border sm:border-none px-7 py-3 font-semibold transition-all duration-300 cursor-pointer"
-                style={{ animationDelay: '700ms' }}>
-                <span className="relative z-10">For Customers</span>
-                <span className="absolute right-0 top-0 border h-full w-2 rounded-2xl bg-emerald-500 transition-all duration-600 group-hover:w-full"></span>
-              </button>
+                <button className="animate-slideInRight group relative overflow-hidden rounded-2xl border sm:border-none px-7 py-3 font-semibold transition-all duration-300 cursor-pointer"
+                  style={{ animationDelay: '700ms' }}>
+                  <span className="relative z-10">For Customers</span>
+                  <span className="absolute right-0 top-0 border h-full w-2 rounded-2xl bg-emerald-500 transition-all duration-600 group-hover:w-full"></span>
+                </button>
               </Link>
             </div>
 

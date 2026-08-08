@@ -1,16 +1,36 @@
 @import "tailwindcss";
 
-@keyframes scan {
-  0% { top: -5%; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { top: 105%; opacity: 0; }
+@keyframes bn-ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.55;
+  }
+  70% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+ 
+.bn-ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1400px;
+  height: 1400px;
+  max-width: 160vmax;
+  max-height: 160vmax;
+  border-radius: 9999px;
+  border: 1.7px solid #10b981;
+   box-shadow: 0 0 40px 4px #10b98133;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  animation: bn-ripple 4.5s ease-out infinite;
+  animation-fill-mode: backwards;
 }
 
-.animate-scan {
-  animation: scan 6s cubic-bezier(0.5, 0, 0.8, 1) infinite;
-  animation-delay: 2s;
-}
 
 @keyframes heroPop {
   0% {
@@ -186,8 +206,6 @@
   }
 }
 
-/* Every card in the results grid fades in — capped delay so a long list
-   doesn't take forever to finish appearing. */
 .stagger-grid > * {
   opacity: 0;
   animation: cardIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;

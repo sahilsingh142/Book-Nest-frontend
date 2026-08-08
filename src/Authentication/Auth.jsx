@@ -81,29 +81,35 @@ export default function AuthPage() {
 
   const handleLoginData = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post('http://localhost:5600/auth/login',
+      const res = await axios.post(
+        "http://localhost:5600/auth/login",
         isLogin,
         {
-          withCredentials: true
+          withCredentials: true,
         }
-      )
+      );
 
       const role = res.data.data.role;
 
       if (role === "Business") {
+        try {
+          await axios.get(
+            "http://localhost:5600/fromData/businessProfile",
+            {
+              withCredentials: true,
+            }
+          );
 
-        const profile = await axios.get(
-          "http://localhost:5600/fromData/businessProfile",
-          {
-            withCredentials: true,
-          }
-        );
-
-        if (profile.data.exists) {
           navigate("/businesProfile");
-        } else {
-          navigate("/business");
+
+        } catch (err) {
+          if (err.response?.status === 404) {
+            navigate("/business");
+          } else {
+            toast.error("Something went wrong");
+          }
         }
 
       } else {
@@ -111,19 +117,17 @@ export default function AuthPage() {
       }
 
       toast.success("Login Successful");
-    }
-    catch (err) {
+
+    } catch (err) {
       const errors = err.response?.data?.errors;
 
       if (errors) {
-        errors.forEach((error) => {
-          toast.error(error.message);
-        });
+        errors.forEach((error) => toast.error(error.message));
       } else {
         toast.error(err.response?.data?.message || "Something went wrong");
       }
     }
-  }
+  };
 
   const handleSubmit = (e) => {
     if (mode === "signup") {
@@ -134,44 +138,46 @@ export default function AuthPage() {
   }
 
   const checkLogin = async () => {
-  try {
-    const { data } = await axios.get(
-      "http://localhost:5600/protected/me",
-      {
-        withCredentials: true,
-      }
-    );
-
-    console.log(data.user.role);
-
-    if (data.user.role !== "Business") {
-      navigate("/customer");
-      return;
-    }
-
     try {
-      await axios.get(
-        "http://localhost:5600/fromData/businessProfile",
+      const { data } = await axios.get(
+        "http://localhost:5600/protected/me",
         {
           withCredentials: true,
         }
       );
 
-      navigate("/businesProfile");
+      if (data.user.role === "Business") {
+
+        try {
+          await axios.get(
+            "http://localhost:5600/fromData/businessProfile",
+            {
+              withCredentials: true,
+            }
+          );
+
+          // Agar request successful hui to profile exist karti hai
+          navigate("/businesProfile");
+
+        } catch (err) {
+
+          if (err.response?.status === 404) {
+            // Profile nahi bani
+            navigate("/business");
+          } else {
+            toast.error("Something went wrong");
+          }
+        }
+
+      } else {
+        navigate("/customer");
+      }
 
     } catch (err) {
-      if (err.response?.status === 404) {
-        navigate("/business");
-      } else {
-        toast.error("Something went wrong");
-      }
+      toast.error("Please login first");
+      navigate("/auth");
     }
-
-  } catch (err) {
-    toast.error("Please login first");
-    navigate("/auth");
-  }
-};
+  };
 
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-linear-to-br from-zinc-100 via-zinc-100 to-zinc-400 p-4">
