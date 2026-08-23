@@ -22,9 +22,6 @@ function Customer() {
   const [businessData, setBusinessData] = useState([]);
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
-  const [mounted, setMounted] = useState(false);
-  const [status, setStatus] = useState("available");
-  const [waitTime, setWaitTime] = useState(30);
 
   useEffect(() => {
     const getCustomerPage = async () => {
@@ -61,7 +58,6 @@ function Customer() {
 
   useEffect(() => {
     const handleBusinessStatusUpdate = (data) => {
-      console.log("🔥 LIVE UPDATE RECEIVED:", data);
 
       setBusinessData((prevData) => {
         return prevData.map((business) => {
@@ -119,6 +115,31 @@ function Customer() {
     }
   }
 
+  const sendNotification = async (businessId) => {
+    try {
+
+      const res = await axios.post(
+        "http://localhost:5600/fromData/notifyOwner",
+        {
+          businessId
+        },
+        {
+          withCredentials: true
+        }
+      );
+
+      console.log(res.data);
+
+    } catch (error) {
+
+      console.log(
+        "Notification Error:",
+        error.response?.data
+      );
+
+    }
+  };
+
 
   if (!customerData) {
     return (
@@ -175,6 +196,7 @@ function Customer() {
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-150 w-150 md:h-200 md:w-200 rounded-full bg-emerald-500/7 shadow-2xl shadow-zinc-300 blur-6xl" />
         </div>
+
 
         <div className="flex flex-wrap gap-2 pt-10">
 
@@ -239,6 +261,15 @@ function Customer() {
                       <FiPhone className="shrink-0 text-emerald-500" />
                       <p className="font-mono">{business.number}</p>
                     </div>
+                  </div>
+
+                  <div className='flex justify-center'>
+                    <button
+                      onClick={() => sendNotification(business._id)}
+                      className="px-6 py-2 text-sm font-medium rounded-full bg-mauve-600 text-zinc-200 hover:scale-95 duration-200 hover:bg-mauve-700 cursor-pointer"
+                    >
+                      Notify Me
+                    </button>
                   </div>
 
                   {
