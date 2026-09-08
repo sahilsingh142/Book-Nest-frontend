@@ -8,8 +8,18 @@ function Home() {
     <>
       <div className={`relative w-full h-screen overflow-hidden transition-colors duration-500 ${toggle ? "bg-black text-white" : "bg-linear-to-br from-zinc-100 via-zinc-50 to-zinc-300 text-black"}`}>
 
-        <div className='absolute inset-0 overflow-hidden pointer-events-none'>
-          <div className="bn-ripple" style={{ animationDelay: '0s' }} />
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-40 left-1/2 -translate-x-1/2 h-200 w-200 md:h-200 md:w-200 rounded-full">
+
+            <div className="pointer-events-none absolute inset-0">
+              <div className="absolute top-40 left-1/2 -translate-x-1/2 h-200 w-200 md:h-200 md:w-200 animate-blob bg-emerald-500/7 shadow-2xl shadow-zinc-300 blur-6xl" />
+              <div
+                className="absolute top-40 left-1/2 -translate-x-1/2 h-150 w-150 md:h-200 md:w-200 bg-emerald-400/5 blur-6xl"
+                style={{ animation: 'blob-morph 8s ease-in-out infinite reverse' }}
+              />
+            </div>
+
+          </div>
         </div>
 
         <div className='relative z-10'>
