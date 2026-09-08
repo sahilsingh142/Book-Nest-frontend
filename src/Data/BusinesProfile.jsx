@@ -57,11 +57,13 @@ function BusinesOwn() {
         setWaitTime((prev) => Math.max(prev - 30, 0));
     };
 
+    const API_URL = import.meta.env.VITE_API_URL;
+    const publicKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 
     useEffect(() => {
         const getProfile = async () => {
             try {
-                const res = await axios.get("http://localhost:5600/fromData/businessProfile", {
+                const res = await axios.get(`${API_URL}/fromData/businessProfile`, {
                     withCredentials: true,
                 });
                 setProfileData(res.data);
@@ -75,7 +77,7 @@ function BusinesOwn() {
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:5600/auth/logout', {},
+            await axios.post(`${API_URL}/auth/logout`, {},
                 {
                     withCredentials: true,
                 }
@@ -96,7 +98,7 @@ function BusinesOwn() {
 
         try {
             const res = await axios.put(
-                "http://localhost:5600/fromData/updateBusiness",
+                `${API_URL}/fromData/updateBusiness`,
                 {
                     businessName: busiName,
                     ownerName: name,
@@ -157,7 +159,7 @@ function BusinesOwn() {
     const updateStatus = async (newStatus) => {
         try {
             await axios.put(
-                "http://localhost:5600/fromData/updateStatus",
+                `${API_URL}/fromData/updateStatus`,
                 {
                     status: newStatus,
                     waitTime: newStatus === "available" ? 0 : waitTime,
@@ -180,7 +182,7 @@ function BusinesOwn() {
     const getUpdateData = async () => {
         try {
             const res = await axios.get(
-                "http://localhost:5600/fromData/getStatusData",
+                `${API_URL}/fromData/getStatusData`,
                 {
                     withCredentials: true,
                 }
@@ -253,8 +255,6 @@ function BusinesOwn() {
 
             const registration = await navigator.serviceWorker.ready;
 
-            const publicKey = "BPyYxRCOgBzniHHn0DjcKrTJmeQIPdR1hseXnXCAkUIBXhIt0bcnqYJsIG4f8v-0JMXMZPeKriZLdJ0tkY51V3E";
-
             const convertedKey = urlBase64ToUint8Array(publicKey);
 
             const subscription =
@@ -265,7 +265,7 @@ function BusinesOwn() {
 
             console.log("✅ Push Subscription:", subscription);
 
-            await axios.post("http://localhost:5600/fromData/savePushSubscription",
+            await axios.post(`${API_URL}/fromData/savePushSubscription`,
                 {
                     subscription
                 },
@@ -313,7 +313,7 @@ function BusinesOwn() {
             </nav>
 
             <div className='flex justify-center mt-3'>
-                <h1 className=' font-black font-mono'>🔔 Allow notifications to receive instant alerts when a customer requests an update</h1>
+                <h1 className='text-sm font-black font-mono'>🔔 Allow notifications to receive instant alerts when a customer requests an update</h1>
             </div>
 
             <div className="stagger relative z-10 mx-auto max-w-5xl space-y-6 px-4 pb-5 pt-3">
@@ -323,12 +323,12 @@ function BusinesOwn() {
                         <div className="panel rounded-3xl border border-zinc-200 bg-white p-8 shadow-xl">
 
                             <div className='flex justify-between'>
-                                <span className="mb-3 inline-flex items-center gap-1.5 tracking-widest rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-600">
+                                <span className="mb-3 inline-flex items-center gap-0.5 sm:gap-1.5 sm:tracking-widest rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-600">
                                     <FiTag size={12} />
                                     {profileData.category}
                                 </span>
 
-                                <button onClick={enableNotifications} className='px-5 py-2 bg-mauve-600 rounded-3xl text-zinc-200 text-sm font-medium cursor-pointer hover:scale-105 duration-300 hover:bg-mauve-700'>
+                                <button onClick={enableNotifications} className='px-3 sm:px-5 sm:py-2 bg-mauve-600 rounded-3xl text-zinc-200 text-[10px] sm:text-sm font-medium cursor-pointer hover:scale-105 duration-300 hover:bg-mauve-700'>
                                     Enable Notifications
                                 </button>
 
@@ -337,8 +337,8 @@ function BusinesOwn() {
                                 </button>
                             </div>
 
-                            <div className='flex justify-between'>
-                                <h2 className="text-3xl font-bold text-zinc-900 sm:text-3xl">
+                            <div className='flex justify-between pt-3 sm:pt-0'>
+                                <h2 className="text-xl font-bold text-zinc-900 sm:text-3xl">
                                     {profileData.businessName}
                                 </h2>
 
@@ -511,9 +511,9 @@ function BusinesOwn() {
             <div className="fixed bottom-6 right-6">
                 <button
                     onClick={handleLogout}
-                    className="flex items-center gap-2 rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-medium text-white cursor-pointer transition-all duration-300 hover:scale-95 hover:bg-emerald-600"
+                    className="flex items-center gap-2 rounded-2xl bg-zinc-700 sm:bg-emerald-500 px-3 py-2 sm:px-5 sm:py-3 text-sm font-medium text-white cursor-pointer transition-all duration-300 hover:scale-95 hover:bg-emerald-600"
                 >
-                    <span>Log Out</span>
+                    <span className='hidden sm:flex'>Log Out</span>
                     <BiLogOutCircle size={20} />
                 </button>
             </div>

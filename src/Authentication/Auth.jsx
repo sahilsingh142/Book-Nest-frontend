@@ -24,6 +24,7 @@ export default function AuthPage() {
   const isSignup = mode === "signup";
   const [role, setRole] = useState(location.state?.role || "Customer");
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     checkLogin();
@@ -57,7 +58,7 @@ export default function AuthPage() {
   const handleSignUpData = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5600/auth/signup',
+      const res = await axios.post(`${API_URL}/auth/signup`,
         isSignUp
       )
       toast.success("Signup Successful");
@@ -84,7 +85,7 @@ export default function AuthPage() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5600/auth/login",
+        `${API_URL}/auth/login`,
         isLogin,
         {
           withCredentials: true,
@@ -96,7 +97,7 @@ export default function AuthPage() {
       if (role === "Business") {
         try {
           await axios.get(
-            "http://localhost:5600/fromData/businessProfile",
+            `${API_URL}/fromData/businessProfile`,
             {
               withCredentials: true,
             }
@@ -140,7 +141,7 @@ export default function AuthPage() {
   const checkLogin = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:5600/protected/me",
+        `${API_URL}/protected/me`,
         {
           withCredentials: true,
         }
@@ -150,7 +151,7 @@ export default function AuthPage() {
 
         try {
           await axios.get(
-            "http://localhost:5600/fromData/businessProfile",
+            `${API_URL}/fromData/businessProfile`,
             {
               withCredentials: true,
             }

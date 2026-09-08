@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { BiLogOutCircle } from "react-icons/bi";
 import { menuData } from '../Data/ExtraData';
 
+
 function Business() {
 
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ function Business() {
     name,
     price: Number(price)
   }));
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     getBusinessPage();
@@ -27,7 +29,7 @@ function Business() {
 
   const getBusinessPage = async () => {
     try {
-      await axios.get('http://localhost:5600/protected/business',
+      await axios.get(`${API_URL}/protected/business`,
         {
           withCredentials: true
         }
@@ -44,7 +46,7 @@ function Business() {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5600/auth/logout', {},
+      await axios.post(`${API_URL}/auth/logout`, {},
         {
           withCredentials: true,
         }
@@ -66,7 +68,7 @@ function Business() {
 
     try {
       await axios.post(
-        "http://localhost:5600/fromData/businessData",
+        `${API_URL}/fromData/businessData`,
         {
           category: isCategory,
           businessName: busiName,

@@ -5,11 +5,12 @@ import axios from "axios";
 const Protected = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [isAuth, setIsAuth] = useState(false);
+    const API_URL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         const verifyUser = async () => {
             try {
-                await axios.get("http://localhost:5600/protected/me",
+                await axios.get(`${API_URL}/protected/me`,
                     {
                         withCredentials: true,
                     });

@@ -7,8 +7,9 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { io } from "socket.io-client";
 
 const CATEGORIES = ['Gym', 'Salon', 'Restaurant', 'Cafe', 'Clinic', 'Hotel', 'Marriage Hall'];
+ const API_URL = import.meta.env.VITE_API_URL;
 
-const socket = io("http://localhost:5600", {
+const socket = io(`${API_URL}`, {
   withCredentials: true
 });
 
@@ -26,7 +27,7 @@ function Customer() {
   useEffect(() => {
     const getCustomerPage = async () => {
       try {
-        const res = await axios.get('http://localhost:5600/protected/customer',
+        const res = await axios.get(`${API_URL}/protected/customer`,
           {
             withCredentials: true
           }
@@ -44,7 +45,7 @@ function Customer() {
   useEffect(() => {
     const getBusinessData = async () => {
       try {
-        const res = await axios.get('http://localhost:5600/fromData/all',
+        const res = await axios.get(`${API_URL}/fromData/all`,
           { withCredentials: true }
         )
         setBusinessData(res.data.data);
@@ -102,7 +103,7 @@ function Customer() {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5600/auth/logout', {},
+      await axios.post(`${API_URL}/auth/logout`, {},
         {
           withCredentials: true,
         }
@@ -119,7 +120,7 @@ function Customer() {
     try {
 
       const res = await axios.post(
-        "http://localhost:5600/fromData/notifyOwner",
+        `${API_URL}/fromData/notifyOwner`,
         {
           businessId
         },
