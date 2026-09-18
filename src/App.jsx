@@ -10,10 +10,10 @@ import BusinesProfile from "./Data/BusinesProfile";
 function App() {
   return (
     <>
-      {/* <Toaster
+      <Toaster
         position="bottom-right"
         reverseOrder={false}
-      /> */}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
