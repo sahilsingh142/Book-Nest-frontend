@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import toast from "react-hot-toast";
 import { FiSearch, FiUser, FiMapPin, FiPhone, FiBriefcase, FiX } from "react-icons/fi";
 import { BiLogOutCircle } from "react-icons/bi";
 import { io } from "socket.io-client";
@@ -35,7 +34,7 @@ function Customer() {
         setCustomerData(res.data.user);
       }
       catch (err) {
-        toast.error("Unauthorized")
+        console.log(err)
         navigate("/auth")
       }
     }
@@ -51,7 +50,7 @@ function Customer() {
         setBusinessData(res.data.data);
       }
       catch (err) {
-        toast.error("Cannot get data");
+        console.log(err);
       }
     }
     getBusinessData();
@@ -109,10 +108,9 @@ function Customer() {
         }
       )
       navigate("/");
-      toast.success("Logout Successful")
     }
     catch (err) {
-      toast.error("Logout Failed")
+      console.log(err)
     }
   }
 
