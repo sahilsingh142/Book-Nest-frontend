@@ -152,7 +152,7 @@ function Customer() {
   }
 
   return (
-    <div className="relative min-h-dvh bg-zinc-50">
+    <div className="relative bg-zinc-50">
 
       {/* Nav */}
       <nav className="sticky top-0 z-20 border-b border-zinc-200/80 bg-zinc-50/70 backdrop-blur-md">
