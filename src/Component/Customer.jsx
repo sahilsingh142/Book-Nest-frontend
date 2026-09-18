@@ -152,7 +152,7 @@ function Customer() {
   }
 
   return (
-    <div className="relative min-h-dvh bg-zinc-50">
+    <div className="relative bg-zinc-50">
 
       {/* Nav */}
       <nav className="sticky top-0 z-20 border-b border-zinc-200/80 bg-zinc-50/70 backdrop-blur-md">
@@ -223,7 +223,7 @@ function Customer() {
       </section>
 
       {/* Business grid */}
-      <section className="relative mx-auto max-w-7xl px-4 py-8 sm:px-10 sm:py-10">
+      <section className="relative mx-auto max-w-7xl px-4 pt-8 pb-24 sm:px-10 sm:pt-10 sm:pb-28">
         {filteredBusiness.length === 0 ? (
           <div className="bn-rise flex flex-col items-center gap-2 rounded-2xl border border-dashed border-zinc-300 bg-white/60 py-16 sm:py-20 text-center">
             <FiBriefcase className="text-3xl text-zinc-300" />
@@ -301,7 +301,7 @@ function Customer() {
         )}
       </section>
 
-      <div className="absolute bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
+      <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
         <button
           onClick={handleLogout}
           className="flex items-center gap-2 rounded-2xl bg-emerald-500 px-4 py-2.5 sm:px-5 sm:py-3 text-sm font-medium text-white cursor-pointer transition-all duration-300 hover:scale-95 hover:bg-emerald-600"
