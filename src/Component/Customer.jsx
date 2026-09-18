@@ -7,7 +7,7 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { io } from "socket.io-client";
 
 const CATEGORIES = ['Gym', 'Salon', 'Restaurant', 'Cafe', 'Clinic', 'Hotel', 'Marriage Hall'];
- const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const socket = io(`${API_URL}`, {
   withCredentials: true
@@ -245,7 +245,7 @@ function Customer() {
                   <div className="flex h-12 w-12 shrink-0 tracking-wider items-center justify-center rounded-xl bg-emerald-50 text-xl font-black text-emerald-600">
                     {initialsOf(business.businessName)}
                   </div>
-                  <h3 className="pr-16 text-xl font-extrabold leading-tight tracking-tight text-zinc-600">
+                  <h3 className="pr-16 sm:text-xl font-extrabold leading-tight tracking-tight text-zinc-600">
                     {business.businessName}
                   </h3>
                 </div>
@@ -269,7 +269,7 @@ function Customer() {
                       onClick={() => sendNotification(business._id)}
                       className="px-6 py-2 text-sm font-medium rounded-full bg-mauve-600 text-zinc-200 hover:scale-95 duration-200 hover:bg-mauve-700 cursor-pointer"
                     >
-                      Notify Me
+                      Notify <span className='hidden sm:inline'>Me</span>
                     </button>
                   </div>
 
@@ -303,7 +303,7 @@ function Customer() {
         )}
       </section>
 
-      <div className="fixed bottom-6 right-6">
+      <div className="fixed z-50 bottom-4 right-4 sm:bottom-6 sm:right-6">
         <button
           onClick={handleLogout}
           className="flex items-center gap-2 rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-medium text-white cursor-pointer transition-all duration-300 hover:scale-95 hover:bg-emerald-600"
