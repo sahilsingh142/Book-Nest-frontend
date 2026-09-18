@@ -152,7 +152,7 @@ function Customer() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="relative min-h-screen bg-zinc-50">
 
       {/* Nav */}
       <nav className="sticky top-0 z-20 border-b border-zinc-200/80 bg-zinc-50/70 backdrop-blur-md">
@@ -267,7 +267,7 @@ function Customer() {
                   <div className='flex justify-center'>
                     <button
                       onClick={() => sendNotification(business._id)}
-                      className="px-6 py-2 text-sm font-medium rounded-full bg-mauve-600 text-zinc-200 hover:scale-95 duration-200 hover:bg-mauve-700 cursor-pointer"
+                      className="px-4 py-1 sm:px-6 sm:py-2 text-[8px] sm:text-sm font-medium rounded-full bg-mauve-600 text-zinc-200 hover:scale-95 duration-200 hover:bg-mauve-700 cursor-pointer"
                     >
                       Notify <span className='hidden sm:inline'>Me</span>
                     </button>
@@ -303,7 +303,7 @@ function Customer() {
         )}
       </section>
 
-      <div className="fixed z-50 bottom-4 right-4 sm:bottom-6 sm:right-6">
+      <div className="absolute bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
         <button
           onClick={handleLogout}
           className="flex items-center gap-2 rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-medium text-white cursor-pointer transition-all duration-300 hover:scale-95 hover:bg-emerald-600"
