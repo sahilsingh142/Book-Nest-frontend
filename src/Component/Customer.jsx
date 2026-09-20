@@ -195,7 +195,7 @@ function Customer() {
       <section className="relative mx-auto max-w-7xl px-4 sm:px-10">
 
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-150 w-150 md:h-200 md:w-200 rounded-full bg-emerald-500/7 shadow-2xl shadow-zinc-300 blur-6xl" />
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-full h-120 sm:w-250 sm:h-200 rounded-full bg-emerald-500/7 shadow-2xl shadow-zinc-300 blur-6xl" />
         </div>
 
 
@@ -224,6 +224,7 @@ function Customer() {
 
       {/* Business grid */}
       <section className="relative mx-auto max-w-7xl px-4 pt-8 pb-24 sm:px-10 sm:pt-10 sm:pb-28">
+        
         {filteredBusiness.length === 0 ? (
           <div className="bn-rise flex flex-col items-center gap-2 rounded-2xl border border-dashed border-zinc-300 bg-white/60 py-16 sm:py-20 text-center">
             <FiBriefcase className="text-3xl text-zinc-300" />
@@ -301,13 +302,13 @@ function Customer() {
         )}
       </section>
 
-      <div className="fixed bottom-4 left-4 z-50 sm:bottom-6 sm:right-6">
+      <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-2 rounded-2xl bg-emerald-500 px-4 py-2.5 sm:px-5 sm:py-3 text-sm font-medium text-white cursor-pointer transition-all duration-300 hover:scale-95 hover:bg-emerald-600"
+          className="flex items-center gap-2 rounded-2xl bg-emerald-500 px-3 py-2 sm:px-5 sm:py-3 text-[10px] sm:text-sm font-medium text-white cursor-pointer transition-all duration-300 hover:scale-95 hover:bg-emerald-600"
         >
           <span>Log Out</span>
-          <BiLogOutCircle size={20} />
+          <BiLogOutCircle className='text-sm sm:text-lg'/>
         </button>
       </div>
     </div>
